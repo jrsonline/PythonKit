@@ -328,14 +328,31 @@ public struct ThrowingPythonObject {
     public func dynamicallyCall(
         withKeywordArguments args:
         KeyValuePairs<String, PythonConvertible> = [:]) throws -> PythonObject {
-        try throwPythonErrorIfPresent()
         
+        try extendedDynamicallyCall(withKeywordArguments: args)
+    }
+        
+    /// Allows calling of functions with a mix of 'static' arguments (provided at compile-time) and 'dynamic' arguments (provided at run-time).
+    /// Primarily for builders of libraries extending PythonKit; allows for calling of `**kwargs` Python functions.
+    @discardableResult
+    public func extendedDynamicallyCall(withKeywordArguments args:
+                                            KeyValuePairs<String, PythonConvertible> = [:],
+                                        withExtendedArguments extargs: [(String, PythonConvertible)] = []) throws -> PythonObject {
+        try throwPythonErrorIfPresent()
+
         // An array containing positional arguments.
         var positionalArgs: [PythonObject] = []
         // A dictionary object for storing keyword arguments, if any exist.
         var kwdictObject: OwnedPyObjectPointer? = nil
         
+        // Build full list of arguments from key-value and 'extended' arguments
+        var fullArgs: [(String, PythonConvertible)] = []
         for (key, value) in args {
+            fullArgs += [(key,value)]
+        }
+        fullArgs.append(contentsOf: extargs)
+        
+        for (key, value) in fullArgs {
             if key.isEmpty {
                 positionalArgs.append(value.pythonObject)
                 continue
