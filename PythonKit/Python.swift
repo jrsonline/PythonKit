@@ -637,6 +637,13 @@ public extension PythonObject {
         KeyValuePairs<String, PythonConvertible> = [:]) -> PythonObject {
         return try! throwing.dynamicallyCall(withKeywordArguments: args)
     }
+    
+    @discardableResult
+    func extendedDynamicallyCall(withKeywordArguments args:
+                                            KeyValuePairs<String, PythonConvertible> = [:],
+                                        withExtendedArguments extargs: [(String, PythonConvertible)] = []) -> PythonObject {
+        return try! throwing.extendedDynamicallyCall(withKeywordArguments: args, withExtendedArguments: extargs)
+    }
 }
 
 //===----------------------------------------------------------------------===//
