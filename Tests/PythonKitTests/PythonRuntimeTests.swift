@@ -280,7 +280,7 @@ class PythonRuntimeTests: XCTestCase {
     }
     
     func testLibraryHandle() {
-        XCTAssertNotNil(PythonLibrary.sharedPythonLibrary)
+        XCTAssertNotNil(PythonLibrary.sharedPythonLibrary)        
     }
 
     func testExecute() {

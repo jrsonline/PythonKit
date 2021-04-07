@@ -271,10 +271,7 @@ private func throwPythonErrorIfPresent() throws {
 /// A `PythonObject` wrapper that enables throwing method calls.
 /// Exceptions produced by Python functions are reflected as Swift errors and
 /// thrown.
-/// - Note: It is intentional that `ThrowingPythonObject` does not have the
-///   `@dynamicCallable` attribute because the call syntax is unintuitive:
-///   `x.throwing(arg1, arg2, ...)`. The methods will still be named
-///   `dynamicallyCall` until further discussion/design.
+@dynamicCallable
 public struct ThrowingPythonObject {
     private var base: PythonObject
     
