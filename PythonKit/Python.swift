@@ -35,7 +35,7 @@ typealias OwnedPyObjectPointer = PyObjectPointer
 // - Note: When Swift has ownership, `PyReference` should be removed.
 //   `PythonObject` will define copy constructors, move constructors, etc. to
 //   implement move semantics.
-@usableFromInline @_fixed_layout
+//@usableFromInline @_fixed_layout
 final class PyReference {
     private var pointer: OwnedPyObjectPointer
     
@@ -90,7 +90,7 @@ public struct PythonObject {
     /// The underlying `PyReference`.
     fileprivate var reference: PyReference
     
-    @usableFromInline
+    // @usableFromInline
     init(_ pointer: PyReference) {
         reference = pointer
     }
